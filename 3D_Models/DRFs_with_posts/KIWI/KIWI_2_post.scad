@@ -53,14 +53,6 @@ difference(){
         translate ([(cos(axy)*dy1),(sin(axy)*dy1),9.9999])
         import(post);
 
-        color ("red")
-        rotate ([0,0,axy])
-        linear_extrude (10)
-        polygon(dy1_points, paths);
-        color("red")
-        translate ([(cos(axy)*dy1),(sin(axy)*dy1),9.9999])
-        import(post);
-
         color ("purple")
         rotate ([0,0,-(180-axy)])
         linear_extrude (10)
