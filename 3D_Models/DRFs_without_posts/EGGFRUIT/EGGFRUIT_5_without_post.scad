@@ -26,32 +26,53 @@ ph = 5; //post hole depth
 pr = 1; //post hole radius
 
 //DRF polygon points
-dx1_points =[[(dx1+5),5],[(dx1+5),-5],[0,-5],[0,5], [(dx1-5),2],[(dx1-5),-2], [(5),-2], [(5), 2]];
-dx2_points =[[-(dx2+5),5],[-(dx2+5),-5],[0,-5],[0,5], [-(dx2-5),2],[-(dx2-5),-2], [-(5),-2], [-(5), 2]];
-dy1_points =[[(dy1+5),5],[(dy1+5), -5],[0,-5],[0,5], [(dy1-5),2], [(dy1-5),-2], [5,-2], [5,2]];
-dy2_points =[[(dy2+5),5],[(dy2+5), -5],[0,-5],[0,5], [(dy2-5),2], [(dy2-5),-2], [5,-2], [5,2]];
-paths =[[0,1,2,3],[4,5,6,7]];
+dx1_points_o =[[(dx1+5),5],[(dx1+5),-5],[0,-5],[0,5]];
+dx2_points_o =[[-(dx2+5),5],[-(dx2+5),-5],[0,-5],[0,5]];
+dy1_points_o =[[(dy1+5),5],[(dy1+5), -5],[0,-5],[0,5]];
+dy2_points_o =[[(dy2+5),5],[(dy2+5), -5],[0,-5],[0,5]];
+dx1_points_i =[[(dx1-5),2],[(dx1-5),-2], [(5),-2], [(5), 2]];
+dx2_points_i =[[-(dx2-5),2],[-(dx2-5),-2], [-(5),-2], [-(5), 2]];
+dy1_points_i =[[(dy1-5),2], [(dy1-5),-2], [5,-2], [5,2]];
+dy2_points_i =[[(dy2-5),2], [(dy2-5),-2], [5,-2], [5,2]];
 
 difference(){
     //DRF without clearance holes
     union(){
-        color("blue")
-        linear_extrude (10)
-        polygon(dx1_points, paths);
+        difference(){
+            color("blue")
+            linear_extrude (10)
+            polygon(dx1_points_o);
+            linear_extrude (10)
+            polygon(dx1_points_i);
+        }
 
-        color("green")
-        linear_extrude (10)
-        polygon(dx2_points, paths);
+        difference(){
+            color("green")
+            linear_extrude (10)
+            polygon(dx2_points_o);
+            linear_extrude (10)
+            polygon(dx2_points_i);
+        }
 
-        color ("red")
-        rotate ([0,0,axy])
-        linear_extrude (10)
-        polygon(dy1_points, paths);
+        difference(){
+            color ("red")
+            rotate ([0,0,axy])
+            linear_extrude (10)
+            polygon(dy1_points_o);
+            rotate ([0,0,axy])
+            linear_extrude (10)
+            polygon(dy1_points_i);
+        }
 
-        color ("purple")
-        rotate ([0,0,-(180-axy)])
-        linear_extrude (10)
-        polygon(dy2_points, paths);
+        difference(){
+            color ("purple")
+            rotate ([0,0,-(180-axy)])
+            linear_extrude (10)
+            polygon(dy2_points_o);
+            rotate ([0,0,-(180-axy)])
+            linear_extrude (10)
+            polygon(dy2_points_i);
+        }
     }
 
     //clearance holes
